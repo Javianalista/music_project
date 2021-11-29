@@ -165,6 +165,11 @@ sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=secrets_dic
                                                            client_secret=secrets_dict['csecret']))
 
 
+info_dataframe = info_dataframe.drop(['Unnamed: 0'], axis = 1)
+scaled_variables = StandardScaler().fit_transform(info_dataframe)
+pd.DataFrame(scaled_variables,columns=info_dataframe.columns).head()
 kmeans = KMeans(n_clusters=9, random_state=1234)
+kmeans.fit(scaled_variables)
+
 
 asking_improved()
